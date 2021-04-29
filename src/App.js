@@ -1,22 +1,20 @@
-import logo from './logo.svg';
+import List from './lecture/2_List';
+import User from './lecture/3_User';
+import CreateList from './lecture/4_CreateList';
+
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {/* <List
+          title="New List"
+          items={['First item', 'Second item', 'Third item']}
+        /> */}
+        {/* <User /> */}
+
+        <CreateList />
       </header>
     </div>
   );
