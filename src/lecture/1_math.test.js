@@ -1,50 +1,61 @@
-import mathModule from './1_math';
+import mathModule from "./1_math";
 
-// create a test
-test('adds 1 + 2 to equal 3', () => {
-  const result = mathModule.add(1, 2);
-  expect(result).toBe(3);
-  expect(result).not.toBeNull();
-});
+// test suite
+describe("Math module", () => {
+  // example:
+  beforeAll(() => {});
 
-// toBe vs toEqual
-test('toBe vs toEqual', () => {
-  // toBe uses Object.is
-  // expect({ a: 1 }).toBe({ a: 1 });
+  // example:
+  afterAll(() => {});
 
-  // toEqual does deep compare
-  expect({ a: { b: 1 } }).toEqual({ a: { b: 1 } });
-});
+  // example: setup a DOM element as a render target
+  beforeEach(() => {});
 
-// Array's/Iterables
-const favoriteFoods = ['tacos', 'spinach', 'tofu', 'pancakes'];
-test('the favorite foods should contain pancakes', () => {
-  expect(favoriteFoods).toContain('pancakes');
-});
+  // example: clearn render target
+  afterEach(() => {});
 
-// Exceptions
-test('fails when trying to add anything that is not a number', () => {
-  const run = () => mathModule.add('b', 10);
-  expect(run).toThrow();
-  expect(run).toThrow('parameters must be numbers');
+  // it/test
+  it("should add 1 + 2 and equal 3", () => {
+    const result = mathModule.add(1, 2);
+
+    expect(result).toBe(3);
+  });
+
+  // Exceptions
+  it("should fail when trying to add anything that is not a number", () => {
+    const run = () => mathModule.add("Hello World", 10);
+
+    expect(run).toThrow();
+    expect(run).toThrow("parameters must be numbers");
+  });
+
+  it("should calculate bounding box given set of points", () => {
+    const points = [
+      { x: 0, y: 0 },
+      { x: 1, y: 1 },
+      { x: 2, y: 2 },
+    ];
+
+    const boundingBox = mathModule.boundingBox(points);
+
+    expect(boundingBox).toEqual({ min: { x: 0, y: 0 }, max: { x: 2, y: 2 } });
+  });
+
+  // Array's/Iterables
+  it("should clamp points", () => {
+    const points = [
+      { x: -10, y: -10 },
+      { x: 10, y: 10 },
+    ];
+    const clampMin = -5;
+    const clampMax = 5;
+
+    const clampedPoints = mathModule.clamp(points, clampMin, clampMax);
+
+    expect(clampedPoints).toContainEqual({ x: -5, y: -5 });
+    expect(clampedPoints).toContainEqual({ x: 5, y: 5 });
+  });
 });
 
 // More about expect
 // https://jestjs.io/docs/expect
-
-// test suite
-describe('enter description', () => {
-  // example: setup DB connection
-  beforeAll(() => {});
-
-  // example: seeding some data before each test
-  beforeEach(() => {});
-
-  // example: tearing down DB connection
-  afterAll(() => {});
-
-  // example: cleaning up database
-  afterEach(() => {});
-
-  it('should test something', () => {});
-});

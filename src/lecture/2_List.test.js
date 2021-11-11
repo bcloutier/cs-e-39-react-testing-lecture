@@ -1,14 +1,15 @@
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
+import { render, unmountComponentAtNode } from "react-dom";
+import { act } from "react-dom/test-utils";
+import TestRenderer from "react-test-renderer";
 
-import List from './2_List';
+import List from "./2_List";
 
-describe('A List', () => {
+describe("A List", () => {
   let container = null;
 
   beforeEach(() => {
     // setup a DOM element as a render target
-    container = document.createElement('div');
+    container = document.createElement("div");
     document.body.appendChild(container);
   });
 
@@ -19,8 +20,11 @@ describe('A List', () => {
     container = null;
   });
 
-  // When writing UI tests, tasks like rendering, user events, or data fetching
-  // can be considered as “units” of interaction with a user interface.
+  /*
+   When writing UI tests, tasks like rendering, user events, or data fetching
+   can be considered as “units” of interaction with a user interface.
+  **/
+  //
 
   // react-dom/test-utils provides a helper called act() that makes sure all
   // updates related to these “units” have been processed and applied to the
@@ -36,28 +40,47 @@ describe('A List', () => {
   // // 2. Act on the object or method under test.
   // // 3. Assert that the expected results have occurred.
 
-  // If this is too boilplate you can try react testing library
-
-  it('should render custom title', () => {
+  it("should render custom title", () => {
     act(() => {
       render(<List title="My custom list" />, container);
     });
 
-    expect(container.querySelector('h3').textContent).toBe('My custom list');
+    expect(container.querySelector("h3").textContent).toBe("My custom list");
   });
 
-  it('should render list items', () => {
+  it("should render list items", () => {
     act(() => {
-      render(<List items={['item 1', 'item 2', 'item 3']} />, container);
+      render(<List items={["item 1", "item 2", "item 3"]} />, container);
     });
 
-    const items = container.querySelector('ul');
+    const items = container.querySelector("ul");
     // check all 3 items are there
-    expect(items.children[0].textContent).toBe('item 1');
-    expect(items.children[1].textContent).toBe('item 2');
-    expect(items.children[2].textContent).toBe('item 3');
+    expect(items.children[0].textContent).toBe("item 1");
+    expect(items.children[1].textContent).toBe("item 2");
+    expect(items.children[2].textContent).toBe("item 3");
 
     // Should only add 3 items and not a forth
     expect(items.children[3]).toBeUndefined();
+  });
+
+  // snapshot tests
+  it("should render list (snapshot)", () => {
+    // render the component
+    let root;
+
+    TestRenderer.act(() => {
+      root = TestRenderer.create(<List title="My custom list" />);
+    });
+
+    // make assertions on root
+    expect(root.toJSON()).toMatchSnapshot();
+
+    // update with some different props
+    TestRenderer.act(() => {
+      root.update(<List items={["item 1", "item 2", "item 3"]} />);
+    });
+
+    // make assertions on root
+    expect(root.toJSON()).toMatchSnapshot();
   });
 });

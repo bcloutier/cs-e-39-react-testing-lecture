@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import styled from 'styled-components';
+import { useState } from "react";
+import styled from "styled-components";
 
 const Wrapper = styled.div`
   border: 1px solid black;
@@ -16,6 +16,19 @@ const Item = styled.li`
 const List = ({ title }) => {
   const [items, setItems] = useState([]);
   const [value, setValue] = useState();
+
+  const [showSaved, setShowSaved] = useState(false);
+
+  const handleSave = () => {
+    fetch("/items", {
+      method: "POST",
+      body: JSON.stringify({ items }),
+    }).then((res) => {
+      if (res.status === 201) {
+        setShowSaved(true);
+      }
+    });
+  };
 
   return (
     <Wrapper>
@@ -34,12 +47,14 @@ const List = ({ title }) => {
         <button
           onClick={() => {
             setItems([...items, value]);
-            setValue('');
+            setValue("");
           }}
         >
           Add
         </button>
       </div>
+      <button onClick={handleSave}>Save</button>
+      {showSaved && <p>Saved List!</p>}
     </Wrapper>
   );
 };

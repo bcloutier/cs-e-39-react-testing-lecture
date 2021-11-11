@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 // // stub out fetch call because we have no back-end
 // const fetch = () =>
@@ -9,17 +9,24 @@ import { useState, useEffect } from 'react';
 const User = ({ id }) => {
   const [user, setUser] = useState(null);
 
-  const fetchUserData = async () => {
-    const response = await fetch('/' + id);
-    const user = await response.json();
-    setUser(user);
-  };
-
   // fetch user data
-  useEffect(() => fetchUserData(id), [id]);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const response = await fetch("/user/" + id);
+
+      try {
+        const user = await response.json();
+        setUser(user);
+      } catch (error) {
+        setUser({ name: "Jane Doe", age: "Unknown", address: "Unknown" });
+      }
+    };
+
+    fetchUserData(id);
+  }, [id]);
 
   if (!user) {
-    return 'loading...';
+    return "loading...";
   }
 
   return (

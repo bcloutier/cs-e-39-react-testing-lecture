@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Wrapper = styled.div`
   border: 1px solid black;
@@ -11,10 +11,10 @@ const Item = styled.li`
   padding: 5px;
 `;
 
-const List = ({ title, items = [] }) => {
+const List = ({ title = "My List", items = [] }) => {
   return (
     <Wrapper>
-      <Title>{title ? title : 'My List'}</Title>
+      <Title>{title}</Title>
       <ul>
         {items.map((item, i) => {
           return <Item key={i}>{item}</Item>;
