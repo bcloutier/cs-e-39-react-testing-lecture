@@ -2,10 +2,10 @@ import mathModule from "./1_math";
 
 // test suite
 describe("Math module", () => {
-  // example:
+  // example: authorization
   beforeAll(() => {});
 
-  // example:
+  // example: clean up
   afterAll(() => {});
 
   // example: setup a DOM element as a render target
@@ -36,9 +36,9 @@ describe("Math module", () => {
       { x: 2, y: 2 },
     ];
 
-    const boundingBox = mathModule.boundingBox(points);
+    const boundingBox2D = mathModule.boundingBox2D(points);
 
-    expect(boundingBox).toEqual({ min: { x: 0, y: 0 }, max: { x: 2, y: 2 } });
+    expect(boundingBox2D).toEqual({ min: { x: 0, y: 0 }, max: { x: 2, y: 2 } });
   });
 
   // Array's/Iterables
@@ -59,3 +59,6 @@ describe("Math module", () => {
 
 // More about expect
 // https://jestjs.io/docs/expect
+
+// When to use unit tests
+// - logic is encapsulated and no need to interact with DOM

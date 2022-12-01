@@ -62,7 +62,7 @@ const average = (array) => {
                 </SyntaxHighlighter>
                 <SyntaxHighlighter language="javascript" style={docco}>
                   {`// calculates bounding box of a list of points
-const boundingBox = (points) => {
+const boundingBox2D = (points) => {
   if (!Array.isArray(points)) {
     throw new Error("parameter must be an array");
   }

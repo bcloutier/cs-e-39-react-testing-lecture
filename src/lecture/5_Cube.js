@@ -259,7 +259,11 @@ const Cube = () => {
     }
   }, []);
 
-  return <canvas width="570" height="570" ref={canvas} />;
+  return (
+    <div id="cube-wrapper">
+      <canvas width="570" height="570" ref={canvas} />
+    </div>
+  );
 };
 
 export default Cube;

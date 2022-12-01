@@ -41,6 +41,8 @@ describe("A List", () => {
   // // 3. Assert that the expected results have occurred.
 
   it("should render custom title", () => {
+    // act: wrap code rendering it and performing updates inside act(). This makes test run closer to
+    // how React works in the browser.
     act(() => {
       render(<List title="My custom list" />, container);
     });
@@ -49,15 +51,17 @@ describe("A List", () => {
   });
 
   it("should render list items", () => {
+    const data = ["item 1", "item 2", "item 3"];
     act(() => {
-      render(<List items={["item 1", "item 2", "item 3"]} />, container);
+      render(<List items={data} />, container);
     });
 
     const items = container.querySelector("ul");
-    // check all 3 items are there
-    expect(items.children[0].textContent).toBe("item 1");
-    expect(items.children[1].textContent).toBe("item 2");
-    expect(items.children[2].textContent).toBe("item 3");
+
+    // check all 3 items are there and in the correct order
+    data.forEach((d, i) => {
+      expect(items.children[i].textContent).toBe(d);
+    });
 
     // Should only add 3 items and not a forth
     expect(items.children[3]).toBeUndefined();

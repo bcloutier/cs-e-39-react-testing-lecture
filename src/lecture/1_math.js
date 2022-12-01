@@ -20,7 +20,7 @@ const average = (array) => {
   );
 };
 
-const boundingBox = (points) => {
+const boundingBox2D = (points) => {
   if (!Array.isArray(points)) {
     throw new Error("parameter must be an array");
   }
@@ -61,9 +61,11 @@ const clamp = (points, min, max) => {
   });
 };
 
-export default {
+const math = {
   add,
   average,
-  boundingBox,
+  boundingBox2D,
   clamp,
 };
+
+export default math;

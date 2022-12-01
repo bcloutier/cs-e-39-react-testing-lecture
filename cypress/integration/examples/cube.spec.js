@@ -8,26 +8,17 @@ describe("A Cube", () => {
   });
 
   it("should rotate", () => {
-    return cy.get("canvas").then(([c]) => {
-      let eventStart = new MouseEvent("mousedown", {
-        view: window,
-        bubbles: true,
-        cancelable: true,
-        clientX: c.width / 2,
-        clientY: c.height / 2,
-      });
-      const mouseMoveEvents = new MouseEvent("mousemove", {
-        view: window,
-        bubbles: true,
-        cancelable: true,
-        clientX: c.width / 2 + 100,
-        clientY: c.height / 2 + 100,
-      });
-
-      c.dispatchEvent(eventStart);
-      c.dispatchEvent(mouseMoveEvents);
-
-      cy.matchScreenshot("cube should rotate");
+    cy.get("#cube-wrapper").trigger("mousedown", {
+      position: "center",
     });
+    cy.get("#cube-wrapper").trigger("mousemove", {
+      x: 300,
+      y: 0,
+    });
+    cy.get("#cube-wrapper").trigger("mouseup");
+
+    cy.wait(4000);
+
+    cy.matchScreenshot("cube should rotate");
   });
 });
